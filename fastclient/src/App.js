@@ -43,7 +43,7 @@ function App() {
       <button onClick={() => { submitData() }}>Submit</button>
       <p>Reponse Text: {response_text}</p>
       <p>Image Button</p>
-      <button onClick={()=>{set_image_ip('http://127.0.0.1:8000/basic_image')}}>Get Button</button>
+      <button onClick={()=>{set_image_ip('http://127.0.0.1:8000/basic_image')}}>Get Image</button>
       <ImageViewer imageUrl={image_ip} />
       
     </div>

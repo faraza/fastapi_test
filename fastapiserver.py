@@ -1,8 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
-import os
+from fastapi.responses import FileResponse, StreamingResponse
+import io
+from PIL import Image
 
 app = FastAPI()
 origins = [
@@ -36,15 +37,17 @@ async def body_method(sample_post: SamplePost):
     "description": "Return an image."
 }})
 async def basic_image():
-    # Construct the path to the image
     image_path = 'F:/FastAPITest/bb.png'
-    
-    # Make sure the file exists
-    if os.path.isfile(image_path):
-        return FileResponse(image_path, media_type='image/png')
-    else:
-        # If the file is not found, return a 404 response
-        raise HTTPException(status_code=404, detail="File not found")
+
+    try:
+        img = Image.open(image_path)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format='PNG')
+    img_byte_arr.seek(0)  
+    return StreamingResponse(img_byte_arr, media_type="image/png")
     
 
 
