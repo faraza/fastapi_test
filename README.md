@@ -7,7 +7,9 @@ Make sure you're in the top of this repo (i.e. not in the fastclient server)
 1) Install everything
 
 pip install fastapi
+
 pip install pydantic
+
 pip install uvicorn
 
 2) Run the server
