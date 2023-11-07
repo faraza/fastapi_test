@@ -1,11 +1,12 @@
 import { useState } from 'react'
-
+import ImageViewer from './ImageViewer.js'
 
 function App() {
   const [name_text, set_text_field] = useState('')
   const [response_text, set_response_text] = useState('')
   const [file_path, set_file_path] = useState('')
   const [age, set_age] = useState(0)
+  const [image_ip, set_image_ip] = useState('')
 
   function submitData() {
     console.log("Submitting data: " + name_text)
@@ -41,6 +42,10 @@ function App() {
       <br></br>
       <button onClick={() => { submitData() }}>Submit</button>
       <p>Reponse Text: {response_text}</p>
+      <p>Image Button</p>
+      <button onClick={()=>{set_image_ip('http://127.0.0.1:8000/basic_image')}}>Get Button</button>
+      <ImageViewer imageUrl={image_ip} />
+      
     </div>
   );
 }
